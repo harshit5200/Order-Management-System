@@ -1,0 +1,65 @@
+
+com.infosys.user.controller.UserController#validatePrivilegedBuyer(Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java0  0(7"startingBlock*»
+startingBlock}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java07 0(Uí
+ê
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java08 0(E
+%5"
+__annotate*86
+4org.springframework.web.bind.annotation.PathVariable*
+
+buyerIdjava.lang.Stringµ
+²
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java0M 0(T
+buyerIdjava.lang.String"__annotation*
+
+%5*
+1*ú
+1}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java1 1(õ
+ò
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java1 1(*
+%0$com.infosys.user.service.UserService"__id*?*=,
+*com.infosys.user.controller.UserController"
+userServiceú÷
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java1 1(?
+%1java.lang.Boolean"ccom.infosys.user.service.UserService#validatePrivilegedBuyer(Ljava/lang/String;)Ljava/lang/Boolean;*,
+*
+%0$com.infosys.user.service.UserService*
+
+buyerIdjava.lang.String2+validatePrivilegedBuyer(Ljava/lang/String;)À
+½
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java1 1(@
+resultjava.lang.Boolean"__id*
+
+%1java.lang.Boolean»
+¸
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java2& 2(3)
+%2#org.springframework.http.HttpStatus"__id*
+""Ú×
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java2 2(-
+%3'org.springframework.http.ResponseEntity"'org.springframework.http.ResponseEntityï
+ì
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java2	 2(4
+%4"horg.springframework.http.ResponseEntity#<init>(Ljava/lang/Object;Lorg/springframework/http/HttpStatus;)V*/
+-
+%3'org.springframework.http.ResponseEntity*
+
+resultjava.lang.Boolean*+
+)
+%2#org.springframework.http.HttpStatus"°
+}
+sF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/controller/UserController.java2 2(5/
+-
+%3'org.springframework.http.ResponseEntity:
+buyerIdjava.lang.StringB.,
+*com.infosys.user.controller.UserController

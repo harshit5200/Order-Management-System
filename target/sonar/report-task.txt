@@ -1,0 +1,7 @@
+organization=harshit5200
+projectKey=com.infosys:user
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.24709
+dashboardUrl=https://sonarcloud.io/dashboard?id=com.infosys%3Auser
+ceTaskId=AX0Ivwh4YGRBDeus_1TZ
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AX0Ivwh4YGRBDeus_1TZ

@@ -112,9 +112,8 @@ public class UserController {
 	}
 	@PostMapping(value = "/buyer/cart")
 	public ResponseEntity<String> addCart(@RequestBody CartDTO cart) throws UserException {
-		String url = "http://localhost:8300/api/validate/product/"+cart.getProductId();
 		RestTemplate restTemplate = new RestTemplate();
-		Boolean checkProd = restTemplate.getForObject(url, Boolean.class);
+		Boolean checkProd = restTemplate.getForObject("http://localhost:8300/api/validate/product/"+cart.getProductId(), Boolean.class);
 		if(checkProd) {
 			return new ResponseEntity<>("Invalid Product!!", HttpStatus.BAD_REQUEST);
 		}
@@ -137,9 +136,8 @@ public class UserController {
 	}
 	@PostMapping(value = "/buyer/wishlist")
 	public ResponseEntity<String> addWishlist(@RequestBody WishlistDTO wishlist) throws UserException {
-		String url = "http://localhost:8300/api/validate/product/"+wishlist.getProductId();
 		RestTemplate restTemplate = new RestTemplate();
-		Boolean checkProd = restTemplate.getForObject(url, Boolean.class);
+		Boolean checkProd = restTemplate.getForObject("http://localhost:8300/api/validate/product/"+wishlist.getProductId(), Boolean.class);
 		if(checkProd) {
 			return new ResponseEntity<>("Invalid Product!!", HttpStatus.BAD_REQUEST);
 		}

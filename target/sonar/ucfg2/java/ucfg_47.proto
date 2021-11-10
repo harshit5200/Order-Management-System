@@ -1,0 +1,94 @@
+
+jcom.infosys.user.service.UserServiceImpl#addWishlist(Lcom/infosys/user/dto/WishlistDTO;)Ljava/lang/String;}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‹ ‹("startingBlock*¡
+startingBlock}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‹ ‹(3ﬂ
+‹
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java€ €(
+
+%9"
+__annotate*
+java.lang.Override*1
+/
+wishlistDTO com.infosys.user.dto.WishlistDTO…
+∆
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‹' ‹(2/
+wishlistDTO com.infosys.user.dto.WishlistDTO"__annotation*
+
+%9*
+1*ì
+1}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java› ›($Ã…
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java› ›("&
+%0 com.infosys.user.entity.Wishlist" com.infosys.user.entity.Wishlistﬁ
+€
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java› ›($
+%1"*com.infosys.user.entity.Wishlist#<init>()V*(
+&
+%0 com.infosys.user.entity.Wishlist‡
+›
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java› ›(%,
+wishlist com.infosys.user.entity.Wishlist"__id*(
+&
+%0 com.infosys.user.entity.Wishlistúô
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.javaﬁ ﬁ(.
+%2java.lang.String"?com.infosys.user.dto.WishlistDTO#getBuyerId()Ljava/lang/String;*1
+/
+wishlistDTO com.infosys.user.dto.WishlistDTO2getBuyerId()∫∑
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.javaﬁ ﬁ(/
+
+%3void"@com.infosys.user.entity.Wishlist#setBuyerId(Ljava/lang/String;)V*.
+,
+wishlist com.infosys.user.entity.Wishlist*
+
+%2java.lang.String2setBuyerId(Ljava/lang/String;)†ù
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.javaﬂ ﬂ(2
+%4java.lang.String"Acom.infosys.user.dto.WishlistDTO#getProductId()Ljava/lang/String;*1
+/
+wishlistDTO com.infosys.user.dto.WishlistDTO2getProductId()æª
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.javaﬂ ﬂ(3
+
+%5void"Bcom.infosys.user.entity.Wishlist#setProductId(Ljava/lang/String;)V*.
+,
+wishlist com.infosys.user.entity.Wishlist*
+
+%4java.lang.String2 setProductId(Ljava/lang/String;)Ñ
+Å
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‡ ‡(/4
+%6.com.infosys.user.repository.WishlistRepository"__id*D*B*
+(com.infosys.user.service.UserServiceImpl"
+wishlistRepositoryãà
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‡ ‡(>&
+%7 com.infosys.user.entity.Wishlist"]org.springframework.data.repository.CrudRepository#save(Ljava/lang/Object;)Ljava/lang/Object;*6
+4
+%6.com.infosys.user.repository.WishlistRepository*.
+,
+wishlist com.infosys.user.entity.Wishlist2save(Ljava/lang/Object;)Á
+‰
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java‡ ‡(?3
+wishlistSuccess com.infosys.user.entity.Wishlist"__id*(
+&
+%7 com.infosys.user.entity.Wishlist†ù
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java·	 ·(%
+%8java.lang.String"?com.infosys.user.entity.Wishlist#getBuyerId()Ljava/lang/String;*5
+3
+wishlistSuccess com.infosys.user.entity.Wishlist2getBuyerId()"ô
+}
+qF:/Spring Tool Suite Projects/Order-Management-System/src/main/java/com/infosys/user/service/UserServiceImpl.java· ·(&
+
+%8java.lang.String:/
+wishlistDTO com.infosys.user.dto.WishlistDTOB,*
+(com.infosys.user.service.UserServiceImpl
