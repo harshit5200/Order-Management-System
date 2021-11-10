@@ -7,8 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.infosys.user.dto.BuyerDTO;
 import com.infosys.user.dto.CartDTO;
 import com.infosys.user.dto.LoginDTO;
@@ -32,7 +30,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private WishlistRepository wishlistRepository;
 	
-	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
 	public Boolean validateBuyer(String buyerId) throws UserException{
@@ -59,11 +56,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean validatePrivilegedBuyer(String buyerId) throws UserException{
 		Optional<Buyer> b = buyerRespository.findById(buyerId);
-		if(b.get().getIsPrivileged()) {
-			return true;
+		if(b.isEmpty()) {
+			return false;
 		}
 		else {
-			return false;
+			if(b.get().getIsPrivileged()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 	
@@ -111,7 +113,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public String buyerLogin(LoginDTO loginDTO) {
-		LOGGER.info("Login request for customer {} with password {}", loginDTO.getEmail(),loginDTO.getPassword());
 		Buyer b = buyerRespository.findByEmailId(loginDTO.getEmail());
 		if (b != null && b.getPassword().equals(loginDTO.getPassword())) {
 			if(b.getRewardPoints() >= 10000) {
@@ -162,7 +163,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public String sellerLogin(LoginDTO loginDTO) {
-		LOGGER.info("Login request for customer {} with password {}", loginDTO.getEmail(),loginDTO.getPassword());
 		Seller s = sellerRepository.findByEmailId(loginDTO.getEmail());
 		if (s != null && s.getPassword().equals(loginDTO.getPassword())) {
 			return "Successfully Logged In!";
@@ -171,12 +171,16 @@ public class UserServiceImpl implements UserService {
 	}
 	public void deleteBuyer(String buyerId) throws UserException{
 		Optional<Buyer> buyer = buyerRespository.findById(buyerId);
-		buyer.orElseThrow(() -> new UserException("Service.BUYER_NOT FOUND"));
+		if(buyer.isEmpty()) {
+			throw new UserException("Service.BUYER_NOT FOUND");
+		}
 		buyerRespository.deleteById(buyerId);
 	}
 	public void deleteSeller(String sellerId) throws UserException{
 		Optional<Seller> seller = sellerRepository.findById(sellerId);
-		seller.orElseThrow(() -> new UserException("Service.SELLER_NOT_FOUND"));
+		if(seller.isEmpty()) {
+			throw new UserException("Service.SELLER_NOT_FOUND");
+		}
 		sellerRepository.deleteById(sellerId);
 	}
 	
@@ -207,7 +211,9 @@ public class UserServiceImpl implements UserService {
 	}
 	public void deleteCart(String buyerId, String productId) throws UserException{
 		Optional<Cart> cart = cartRepository.findByCart(buyerId, productId);
-		cart.orElseThrow(() -> new UserException("Service.CART_NOT_FOUND"));
+		if(cart.isEmpty()) {
+			throw new UserException("Service.CART_NOT_FOUND");
+		}
 		cartRepository.deleteByCart(buyerId, productId);
 	}
 	@Override
@@ -220,12 +226,16 @@ public class UserServiceImpl implements UserService {
 	}
 	public void deleteWishlist(String buyerId, String productId) throws UserException{
 		Optional<Wishlist> wishlist = wishlistRepository.findByWishlist(buyerId, productId);
-		wishlist.orElseThrow(() -> new UserException("Service.WISHLIST_NOT_FOUND"));
+		if(wishlist.isEmpty()) {
+			throw new UserException("Service.WISHLIST_NOT_FOUND");
+		}
 		wishlistRepository.deleteByWishlist(buyerId, productId);
 	}
 	public void moveWishlist(CartDTO cartDTO) throws UserException{
 		Optional<Wishlist> wishlist = wishlistRepository.findByWishlist(cartDTO.getBuyerId(), cartDTO.getProductId());
-		wishlist.orElseThrow(() -> new UserException("Service.WISHLIST_NOT_FOUND"));
+		if(wishlist.isEmpty()) {
+			throw new UserException("Service.WISHLIST_NOT_FOUND");
+		}
 		Cart cart = new Cart();
 		cart.setBuyerId(cartDTO.getBuyerId());
 		cart.setProductId(cartDTO.getProductId());

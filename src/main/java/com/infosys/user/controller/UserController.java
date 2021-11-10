@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -20,8 +21,6 @@ import javax.validation.Valid;
 import com.infosys.user.dto.*;
 import com.infosys.user.service.*;
 import com.infosys.user.exception.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -34,7 +33,6 @@ public class UserController {
 	@Autowired
 	private Environment environment;
 	
-	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping(value = "/validate/buyer/{buyerId}")
 	public ResponseEntity<Boolean> validateBuyer(@PathVariable String buyerId) throws UserException{
@@ -48,7 +46,7 @@ public class UserController {
 	}
 	@GetMapping(value = "/validate/privileged/{buyerId}")
 	public ResponseEntity<Boolean> validatePrivilegedBuyer(@PathVariable String buyerId) throws UserException{
-		Boolean result = userService.validateSeller(buyerId);
+		Boolean result = userService.validatePrivilegedBuyer(buyerId);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -61,10 +59,10 @@ public class UserController {
 	public ResponseEntity<String> addBuyer(@Valid @RequestBody BuyerDTO buyer) throws UserException {
 		String buyerId = userService.addBuyer(buyer);
 		String successMessage;
-		if(buyerId == "Buyer Already Exist") {
+		if(buyerId.equals("Buyer Already Exist")) {
 			successMessage = "" + buyerId;
 		}
-		else if(buyerId == "Phone Number Is Already In Use!") {
+		else if(buyerId.equals("Phone Number Is Already In Use!")) {
 			successMessage = "" + buyerId;
 		}
 		else {
@@ -74,7 +72,6 @@ public class UserController {
 	}
 	@PostMapping(value = "/buyer/login")
 	public String buyerLogin(@RequestBody LoginDTO loginDTO) {
-		LOGGER.info("Login request for customer {} with password {}", loginDTO.getEmail(),loginDTO.getPassword());
 		return userService.buyerLogin(loginDTO);
 	}
 	@GetMapping(value = "/seller")
@@ -86,13 +83,10 @@ public class UserController {
 	public ResponseEntity<String> addSeller(@Valid @RequestBody SellerDTO buyer) throws UserException {
 		String sellerId = userService.addSeller(buyer);
 		String successMessage;
-		if(sellerId == "Seller Already Exist!") {
+		if(sellerId.equals("Seller Already Exist!")) {
 			successMessage = "" + sellerId;
 		}
-		if(sellerId == "Seller Already Exist!") {
-			successMessage = "" + sellerId;
-		}
-		else if(sellerId == "Phone Number Is Already In Use!") {
+		else if(sellerId.equals("Phone Number Is Already In Use!")) {
 			successMessage = "" + sellerId;
 		}
 		else {
@@ -102,7 +96,6 @@ public class UserController {
 	}
 	@PostMapping(value = "/seller/login")
 	public String sellerLogin(@RequestBody LoginDTO loginDTO) {
-		LOGGER.info("Login request for customer {} with password {}", loginDTO.getEmail(),loginDTO.getPassword());
 		return userService.sellerLogin(loginDTO);
 	}
 	@DeleteMapping(value = "/buyer/{buyerId}")
@@ -119,12 +112,20 @@ public class UserController {
 	}
 	@PostMapping(value = "/buyer/cart")
 	public ResponseEntity<String> addCart(@RequestBody CartDTO cart) throws UserException {
-		String cartId = userService.addCart(cart);
-		String successMessage = environment.getProperty("API.INSERT_SUCCESS2");
-		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
+		String url = "http://localhost:8300/api/validate/product/"+cart.getProductId();
+		RestTemplate restTemplate = new RestTemplate();
+		Boolean checkProd = restTemplate.getForObject(url, Boolean.class);
+		if(checkProd) {
+			return new ResponseEntity<>("Invalid Product!!", HttpStatus.BAD_REQUEST);
+		}
+		else {
+			userService.addCart(cart);
+			String successMessage = environment.getProperty("API.INSERT_SUCCESS2");
+			return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
+		}
 	}
-	@GetMapping(value = "/buyer/cart")
-	public ResponseEntity<List<CartDTO>> getCart(@RequestBody String buyerId) throws UserException {
+	@GetMapping(value = "/buyer/cart/{buyerId}")
+	public ResponseEntity<List<CartDTO>> getCart(@PathVariable String buyerId) throws UserException {
 		List<CartDTO> cart = userService.getCart(buyerId);
 		return new ResponseEntity<>(cart, HttpStatus.CREATED);
 	}
@@ -136,9 +137,17 @@ public class UserController {
 	}
 	@PostMapping(value = "/buyer/wishlist")
 	public ResponseEntity<String> addWishlist(@RequestBody WishlistDTO wishlist) throws UserException {
-		String wishlistId = userService.addWishlist(wishlist);
-		String successMessage = environment.getProperty("API.INSERT_SUCCESS3");
-		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
+		String url = "http://localhost:8300/api/validate/product/"+wishlist.getProductId();
+		RestTemplate restTemplate = new RestTemplate();
+		Boolean checkProd = restTemplate.getForObject(url, Boolean.class);
+		if(checkProd) {
+			return new ResponseEntity<>("Invalid Product!!", HttpStatus.BAD_REQUEST);
+		}
+		else {
+			userService.addWishlist(wishlist);
+			String successMessage = environment.getProperty("API.INSERT_SUCCESS3");
+			return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
+		}
 	}
 	@DeleteMapping(value = "/buyer/{buyerId}/{productId}/wishlist")
 	public ResponseEntity<String> deleteWishlist(@PathVariable String buyerId, @PathVariable String productId) throws UserException {
